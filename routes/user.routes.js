@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Admin-only actions
 router.post('/add-user', protect, adminOnly, addUserController);
-router.get('/get-users', protect, adminOnly, getUsersController);
+router.get('/get-users', protect, getUsersController);
 router.get('/:id', protect, adminOnly, getUserByIdController);
 router.put('/:id', protect, adminOnly, updateUserController);
 router.delete('/:id', protect, adminOnly, deleteUserController);

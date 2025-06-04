@@ -1,4 +1,5 @@
-//! config/db.js
+// config/db.js
+
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
@@ -6,11 +7,13 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      // dbName: 'userProfileDB', // optional if included in URI
     });
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1); // Exit process with failure
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    process.exit(1);
   }
 };
 
