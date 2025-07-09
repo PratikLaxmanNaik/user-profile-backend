@@ -14,12 +14,16 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: function () {
+        return !this.googleId; // password required if NOT using Google
+      },
     },
     gender: {
       type: String,
       enum: ['Male', 'Female', 'Other'],
-      required: true,
+      required: function () {
+        return !this.googleId; // Gender required if NOT using Google
+      },
     },
     strengths: [
       {
@@ -33,7 +37,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['admin', 'user'],
       default: 'user',
-    }
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true
+    },
   },
   {
     timestamps: true,

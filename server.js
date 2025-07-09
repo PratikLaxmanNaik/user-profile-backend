@@ -16,19 +16,18 @@ connectDB();
 
 // Init app
 const app = express();
+
+
+require('./config/passport')(passport);       // Your JWT strategy
+require('./config/google.config');            // Make sure this runs
 // Middlewares 
 app.use(cors());
 app.use(express.json());
-app.use(
-  session({
-    secret: process.env.JWT_SECRET, // use strong secret or env var
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-app.use(morgan('dev'));
+app.use(session({ secret: process.env.JWT_SECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(morgan('dev'));
 
 // passport init + strategy
 require('./config/passport')(passport);
